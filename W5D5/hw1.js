@@ -18,3 +18,5 @@ reader.question('Would you like some tea?\n', (teaResponse) => {
     reader.close();
   });
 });
+
+var a = 3;
