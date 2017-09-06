@@ -1,27 +1,30 @@
-const DELAY = 0;
-const COLOR_SHIFT = 30;
-const DIMENSIONS = 250;
+const DELAY = 20;
+const COLOR_SHIFT = 60;
+const DIMENSIONS = 100;
 
 document.addEventListener('DOMContentLoaded', () => {
-  const colors = [generateRandomColor()];
-
   initializeCanvas();
 
-  for (let i = 0; i < DIMENSIONS**2; i++) {
-    padWithRelatedColor(colors);
-  }
+  const colors = initializeColors();
 
   cycleRandomColors(colors);
 });
-
-function colorShift() {
-
-}
 
 function initializeCanvas() {
   const canvas = document.getElementById('world');
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
+}
+
+function initializeColors() {
+
+  const colors = [];
+
+  for (let i = 0; i < DIMENSIONS ** 2; i++) {
+    colors.push('rgb(255, 255, 255)');
+  }
+
+  return colors;
 }
 
 function padWithRelatedColor(colors) {
@@ -62,8 +65,8 @@ function cycleRandomColors(colors) {
   if (canvas && canvas.getContext) {
     renderColors(canvas, colors);
   }
-  colors.pop();
-  padWithRelatedColor(colors);
+
+  colors = colors.map(generateNextColor);
 
   setTimeout(cycleRandomColors.bind(null, colors), DELAY);
 }
